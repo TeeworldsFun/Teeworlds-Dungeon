@@ -23,3 +23,5 @@ other/icons/*.res
 /serverlaunch*
 /tileset_border*
 /versionsrv*
+
+.*

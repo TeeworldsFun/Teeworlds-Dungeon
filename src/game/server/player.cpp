@@ -49,7 +49,7 @@ CPlayer::CPlayer(CGameContext *pGameServer, int ClientID, int Team)
 		m_Score = 0;
 		//m_Score = 60;
 
-	m_pAI = NULL;
+	m_pAI = nullptr;
 	m_Class = -1;
 	m_ClassPickWhine = 400;
 	
