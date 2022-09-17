@@ -45,7 +45,7 @@ static const char *aDifficulty[NUM_DIFFICULTIES] =
 
 CGameControllerKillingFloor::CGameControllerKillingFloor(class CGameContext *pGameServer) : IGameController(pGameServer)
 {
-	m_pGameType = "KF";
+	m_pGameType = "FDungeon";
 
 	for (int i = 0; i < MAX_TELEPORTS; i++)
 		m_apTeleport[i] = NULL;
