@@ -288,6 +288,8 @@ CServer::CServer() : m_DemoRecorder(&m_SnapshotDelta)
 	m_RconClientID = IServer::RCON_CID_SERV;
 	m_RconAuthLevel = AUTHED_ADMIN;
 
+	m_MapGenerated = false;
+
 	Init();
 }
 
@@ -1245,13 +1247,12 @@ char *CServer::GetMapName()
 
 int CServer::LoadMap(const char *pMapName)
 {
+	//if (str_comp(pMapName, "generated") != 0)
+	//	m_MapGenerated = false;
+
 	//DATAFILE *df;
 	char aBuf[512];
 	str_format(aBuf, sizeof(aBuf), "maps/%s.map", pMapName);
-
-	/*df = datafile_load(buf);
-	if(!df)
-		return 0;*/
 
 	// check for valid standard map
 	if(!m_MapChecker.ReadAndValidateMap(Storage(), aBuf, IStorage::TYPE_ALL))
@@ -1379,7 +1380,9 @@ int CServer::Run()
 						if(m_aClients[c].m_State <= CClient::STATE_AUTH)
 							continue;
 
+						//if (!g_Config.m_SvMapGen || str_startswith(g_Config.m_SvMap, "Dungeon") == 0)
 						SendMap(c);
+
 						m_aClients[c].Reset();
 						m_aClients[c].m_State = CClient::STATE_CONNECTING;
 					}

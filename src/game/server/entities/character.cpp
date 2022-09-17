@@ -14,6 +14,7 @@
 #include "electromine.h"
 
 #include <game/server/upgradelist.h>
+#include <game/server/ai_protocol.h>
 
 #define RAD 0.017453292519943295769236907684886f
 
@@ -1829,23 +1830,40 @@ void CCharacter::Snap(int SnappingClient)
 	if(NetworkClipped(SnappingClient))
 		return;
 
+	CCharacterCore *pCore;
+	int Tick, Emote = m_EmoteType, Weapon = m_Core.m_ActiveWeapon, AmmoCount = 0,
+		  Health = 0, Armor = 0;
+	if(!m_ReckoningTick || GameServer()->m_World.m_Paused)
+	{
+		Tick = 0;
+		pCore = &m_Core;
+	}
+	else
+	{
+		Tick = m_ReckoningTick;
+		pCore = &m_SendCore;
+	}
+
+	/*if(GetCID() >= FIRST_BOT_ID)
+	{
+		CNetObj_Laser *pFakeCharacter = static_cast<CNetObj_Laser *>(Server()->SnapNewItem(NETOBJTYPE_PICKUP, GetCID(), sizeof(CNetObj_Laser)));
+		if(!pFakeCharacter)
+			return;
+		pFakeCharacter->m_FromY = GetPosition().y+12;
+		pFakeCharacter->m_FromX = GetPosition().x+12;
+		pFakeCharacter->m_X = GetPosition().x-12;
+		pFakeCharacter->m_Y = GetPosition().y-12;
+		return;
+	}*/
+
 	CNetObj_Character *pCharacter = static_cast<CNetObj_Character *>(Server()->SnapNewItem(NETOBJTYPE_CHARACTER, m_pPlayer->GetCID(), sizeof(CNetObj_Character)));
 	if(!pCharacter)
 		return;
 
-	// write down the m_Core
-	if(!m_ReckoningTick || GameServer()->m_World.m_Paused)
-	{
-		// no dead reckoning when paused because the client doesn't know
-		// how far to perform the reckoning
-		pCharacter->m_Tick = 0;
-		m_Core.Write(pCharacter);
-	}
-	else
-	{
-		pCharacter->m_Tick = m_ReckoningTick;
-		m_SendCore.Write(pCharacter);
-	}
+	pCore->Write(pCharacter);
+	pCharacter->m_Tick = Tick;
+	pCharacter->m_Emote = Emote;
+
 
 	// set emote
 	if (m_EmoteStop < Server()->Tick())
@@ -1903,3 +1921,7 @@ void CCharacter::Snap(int SnappingClient)
 	pCharacter->m_PlayerFlags = GetPlayer()->m_PlayerFlags;
 }
 
+int CCharacter::GetCID()
+{
+	return GetPlayer()->GetCID();
+}

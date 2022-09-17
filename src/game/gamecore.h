@@ -190,6 +190,9 @@ public:
 
 	int m_Direction;
 	int m_Angle;
+	
+	int m_ActiveWeapon;
+	
 	CNetObj_PlayerInput m_Input;
 
 	int m_TriggeredEvents;

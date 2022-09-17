@@ -254,7 +254,7 @@ int CEditorMap::Save(class IStorage *pStorage, const char *pFileName)
 		// TODO!
 		pImg->AnalyseTileFlags();
 
-		CMapItemImage Item;
+		CMapItemImage_v1 Item;
 		Item.m_Version = 1;
 
 		Item.m_Width = pImg->m_Width;
@@ -463,7 +463,7 @@ int CEditorMap::Load(class IStorage *pStorage, const char *pFileName, int Storag
 			DataFile.GetType( MAPITEMTYPE_IMAGE, &Start, &Num);
 			for(int i = 0; i < Num; i++)
 			{
-				CMapItemImage *pItem = (CMapItemImage *)DataFile.GetItem(Start+i, 0, 0);
+				CMapItemImage_v1 *pItem = (CMapItemImage_v1 *)DataFile.GetItem(Start+i, 0, 0);
 				char *pName = (char *)DataFile.GetData(pItem->m_ImageName);
 
 				// copy base info

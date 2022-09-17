@@ -2010,6 +2010,31 @@ unsigned str_quickhash(const char *str)
 	return hash;
 }
 
+const char *str_startswith_nocase(const char *str, const char *prefix)
+{
+	int prefixl = str_length(prefix);
+	if(str_comp_nocase_num(str, prefix, prefixl) == 0)
+	{
+		return str + prefixl;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+const char *str_startswith(const char *str, const char *prefix)
+{
+	int prefixl = str_length(prefix);
+	if(str_comp_num(str, prefix, prefixl) == 0)
+	{
+		return str + prefixl;
+	}
+	else
+	{
+		return 0;
+	}
+}
 
 #if defined(__cplusplus)
 }

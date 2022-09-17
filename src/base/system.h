@@ -1293,6 +1293,38 @@ int str_utf8_encode(char *ptr, int chr);
 */
 int str_utf8_check(const char *str);
 
+/*
+       Function: str_startswith_nocase
+               Checks case insensitive whether the string begins with a certain prefix.
+
+       Parameter:
+               str - String to check.
+               prefix - Prefix to look for.
+
+       Returns:
+               A pointer to the string str after the string prefix, or 0 if
+               the string prefix isn't a prefix of the string str.
+
+       Remarks:
+               - The strings are treated as zero-terminated strings.
+*/
+const char *str_startswith_nocase(const char *str, const char *prefix);
+
+/**
+ * Checks case sensitive whether the string begins with a certain prefix.
+ *
+ * @ingroup Strings
+ *
+ * @param str String to check.
+ * @param prefix Prefix to look for.
+ *
+ * @return A pointer to the string str after the string prefix, or 0 if
+ *		   the string prefix isn't a prefix of the string str.
+ *
+ * @remark The strings are treated as zero-terminated strings.
+ */
+const char *str_startswith(const char *str, const char *prefix);
+
 #ifdef __cplusplus
 }
 #endif

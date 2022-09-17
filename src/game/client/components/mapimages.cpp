@@ -33,7 +33,7 @@ void CMapImages::OnMapLoad()
 	{
 		m_aTextures[i] = 0;
 
-		CMapItemImage *pImg = (CMapItemImage *)pMap->GetItem(Start+i, 0, 0);
+		CMapItemImage_v1 *pImg = (CMapItemImage_v1 *)pMap->GetItem(Start+i, 0, 0);
 		if(pImg->m_External)
 		{
 			char Buf[256];

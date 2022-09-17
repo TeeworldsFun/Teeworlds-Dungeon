@@ -275,6 +275,7 @@ void IGameController::ChangeMap(const char *pToMap)
 
 void IGameController::CycleMap()
 {
+	/*
 	if(m_aMapWish[0] != 0)
 	{
 		char aBuf[256];
@@ -346,7 +347,12 @@ void IGameController::CycleMap()
 	char aBufMsg[256];
 	str_format(aBufMsg, sizeof(aBufMsg), "rotating map to %s", &aBuf[i]);
 	GameServer()->Console()->Print(IConsole::OUTPUT_LEVEL_DEBUG, "game", aBuf);
-	str_copy(g_Config.m_SvMap, &aBuf[i], sizeof(g_Config.m_SvMap));
+	str_copy(g_Config.m_SvMap, &aBuf[i], sizeof(g_Config.m_SvMap));*/
+
+	g_Config.m_SvMapGenSeed = rand()%400+1;
+	g_Config.m_SvMapGenLevel = rand()%400+1;
+
+	GameServer()->GenerateMap();
 }
 
 void IGameController::PostReset()

@@ -160,6 +160,7 @@ public:
 	CCharacterCore GetCore(){ return m_Core; }
 	vec2 GetPosition(){ return m_Pos; }
 	
+	int GetCID();
 	
 private:
 	// player controlling this character

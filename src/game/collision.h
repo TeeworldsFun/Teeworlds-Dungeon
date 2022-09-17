@@ -25,7 +25,14 @@ public:
 		COLFLAG_AIRIGHT=16,
 		COLFLAG_AIUP=32,
 		COLFLAG_RELEASENOGO=64,
-		COLFLAG_NOGO=128
+		COLFLAG_NOGO=128,
+
+		COLFLAG_RAMP_LEFT=129,
+		COLFLAG_RAMP_RIGHT=130,
+		COLFLAG_ROOFSLOPE_LEFT=131,
+		COLFLAG_ROOFSLOPE_RIGHT=132,
+		COLFLAG_DAMAGEFLUID=133,
+		COLFLAG_INSTADEATH=134,
 	};
 
 	CCollision();
@@ -39,6 +46,9 @@ public:
 	void MovePoint(vec2 *pInoutPos, vec2 *pInoutVel, float Elasticity, int *pBounces);
 	void MoveBox(vec2 *pInoutPos, vec2 *pInoutVel, vec2 Size, float Elasticity);
 	bool TestBox(vec2 Pos, vec2 Size);
+
+	// MapGen
+	bool ModifTile(ivec2 pos, int group, int layer, int tile, int flags, int reserved);
 };
 
 #endif
