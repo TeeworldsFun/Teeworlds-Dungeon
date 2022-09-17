@@ -1373,29 +1373,33 @@ void CCharacter::Tick()
 	if (m_ClassAbilityTimer > 0)
 	{
 		m_ClassAbilityTimer--;
-		if (m_ClassAbilityTimer <= 0 && m_pPlayer->m_Class == CLASS_MEDIC)
+		if(m_ClassAbilityTimer <= 0)
 		{
-			GameServer()->SendChatTarget(m_pPlayer->GetCID(), "Heal loaded");
-		}
-		
-		if (m_ClassAbilityTimer <= 0 && m_pPlayer->m_Class == CLASS_COMMANDO)
-		{
-			GameServer()->SendChatTarget(m_pPlayer->GetCID(), "Create clips loaded");
-		}	
-		
-		if (m_ClassAbilityTimer <= 0 && m_pPlayer->m_Class == CLASS_ENGINEER)
-		{
-			GameServer()->SendChatTarget(m_pPlayer->GetCID(), "Electro mine loaded");
-		}		
-		
-		if (m_ClassAbilityTimer <= 0 && m_pPlayer->m_Class == CLASS_PIONEER)
-		{
-			GameServer()->SendChatTarget(m_pPlayer->GetCID(), "Land mine loaded");
-		}
-		
-		if (m_ClassAbilityTimer <= 0 && m_pPlayer->m_Class == CLASS_BERSERKER)
-		{
-			GameServer()->SendChatTarget(m_pPlayer->GetCID(), "Bloodlust loaded");
+			switch (m_pPlayer->m_Class)
+			{
+				case CLASS_MEDIC:
+					GameServer()->SendChatTarget(m_pPlayer->GetCID(), "Heal loaded");
+					break;
+
+				case CLASS_COMMANDO:
+					GameServer()->SendChatTarget(m_pPlayer->GetCID(), "Create clips loaded");
+					break;
+
+				case CLASS_ENGINEER:
+					GameServer()->SendChatTarget(m_pPlayer->GetCID(), "Electro mine loaded");
+					break;
+
+				case CLASS_PIONEER:
+					GameServer()->SendChatTarget(m_pPlayer->GetCID(), "Land mine loaded");
+					break;
+
+				case CLASS_BERSERKER:
+					GameServer()->SendChatTarget(m_pPlayer->GetCID(), "Bloodlust loaded");
+					break;
+
+				default:
+					break;
+			}
 		}
 	}
 	

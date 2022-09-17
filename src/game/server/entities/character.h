@@ -161,6 +161,8 @@ public:
 	vec2 GetPosition(){ return m_Pos; }
 	
 	int GetCID();
+
+	int m_Lifes;
 	
 private:
 	// player controlling this character

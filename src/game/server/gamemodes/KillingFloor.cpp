@@ -67,7 +67,7 @@ CGameControllerKillingFloor::CGameControllerKillingFloor(class CGameContext *pGa
 	m_ZombiesCreated = false;
 	m_DroppablesCreated = false;
 	
-	m_MaxRounds = 7;
+	m_MaxRounds = rand()%20+7;
 	Restart();
 	
 	m_TeleportCounter = 0;
@@ -438,6 +438,20 @@ int CGameControllerKillingFloor::OnCharacterDeath(class CCharacter *pVictim, cla
 		pVictim->GetPlayer()->m_RespawnTick = Server()->Tick()+Server()->TickSpeed()*1.0f;
 	}
 	
+	if(!pVictim->m_IsBot)
+	{
+		pVictim->m_Lifes--;
+		if(pVictim->m_Lifes <= 0)
+		{
+			pVictim->GetPlayer()->m_pAI = new CAILightningbot(GameServer(), pVictim->GetPlayer());
+			GameServer()->SendChatTarget(pVictim->GetCID(), "You are dead, please wait for the next round of respawn.");
+			return 1;
+		}
+		char aBuf[256];
+		str_format(aBuf, sizeof(aBuf), "You lost one life, you only have %d life left", pVictim->m_Lifes);
+		GameServer()->SendChatTarget(pVictim->GetCID(), aBuf);
+	}
+
 	return 0;
 }
 
@@ -449,7 +463,7 @@ CAI *CGameControllerKillingFloor::GetNextEnemyAI(class CCharacter *pChr)
 	
 	
 	// boss wave
-	if (m_Round == m_MaxRounds)
+	if (m_Round%5 == 0 || m_Round == m_MaxRounds)
 	{
 		// create body for the boss
 		if (m_RoundZombieCount == 0)
@@ -562,6 +576,55 @@ CAI *CGameControllerKillingFloor::GetNextEnemyAI(class CCharacter *pChr)
 		else
 			AI = new CAIMadbomber(GameServer(), pChr->GetPlayer());
 		break;
+
+	default:
+		switch (rand()%13)
+		{
+		case 0:
+			AI = new CAIRunner(GameServer(), pChr->GetPlayer());
+			break;
+		case 1:
+			AI = new CAIPistolbot(GameServer(), pChr->GetPlayer());
+			break;
+		case 2:
+			AI = new CAIBomber(GameServer(), pChr->GetPlayer());
+			break;
+		case 3:
+			AI = new CAITank(GameServer(), pChr->GetPlayer());
+			break;
+		case 4:
+			AI = new CAIShotgunner(GameServer(), pChr->GetPlayer());
+			break;
+		case 5:
+			AI = new CAINinja(GameServer(), pChr->GetPlayer());
+			break;
+		case 6:
+			AI = new CAIFlybot(GameServer(), pChr->GetPlayer());
+			break;
+		case 7:
+			AI = new CAIElectro(GameServer(), pChr->GetPlayer());
+			break;
+		case 8:
+			AI = new CAISpiderbomber(GameServer(), pChr->GetPlayer());
+			break;
+		case 9:
+			AI = new CAILightningbot(GameServer(), pChr->GetPlayer());
+			break;
+		case 10:
+			AI = new CAIGrabber(GameServer(), pChr->GetPlayer());
+			break;
+		case 11:
+			AI = new CAILaserbot(GameServer(), pChr->GetPlayer());
+			break;
+		case 12:
+			AI = new CAIMadbomber(GameServer(), pChr->GetPlayer());
+			break;
+		
+		
+		default:
+			break;
+		}
+		break;
 			
 	};
 	
@@ -584,6 +647,12 @@ void CGameControllerKillingFloor::OnCharacterSpawn(CCharacter *pChr)
 		//pChr->GetPlayer()->m_pAI = new CAIRunner(GameServer(), pChr->GetPlayer());
 		pChr->GetPlayer()->m_pAI = GetNextEnemyAI(pChr);
 	}
+
+	if(pChr->GetPlayer()->m_Dead)
+	{
+		pChr->GetPlayer()->m_pAI = new CAILightningbot(GameServer(), pChr->GetPlayer());
+		pChr->m_IsBot = true;
+	}
 }
 
 bool CGameControllerKillingFloor::CanCharacterSpawn(int ClientID)
@@ -600,6 +669,7 @@ bool CGameControllerKillingFloor::CanCharacterSpawn(int ClientID)
 			m_ZombiesLeft--;
 		return true;
 	}
+
 
 	return false;
 }
@@ -929,7 +999,7 @@ void CGameControllerKillingFloor::StartRound()
 	char aBuf[128];
 	
 	// boss round
-	if (m_Round == m_MaxRounds)
+	if (m_Round == m_MaxRounds || m_Round % 5 == 0)
 	{
 		//str_format(aBuf, sizeof(aBuf), "Boss wave - Difficulty: %s", aDifficulty[GameServer()->Difficulty()]);
 		str_format(aBuf, sizeof(aBuf), "Boss wave");
@@ -943,7 +1013,14 @@ void CGameControllerKillingFloor::StartRound()
 		
 	if (m_Round == 2)
 		GameServer()->SendChat(-1, CGameContext::CHAT_ALL, "Check www.ninslash.com for client & updates");
+
+	for(int i = 0; i < FIRST_BOT_ID;i++)
+	{
+		if(!GameServer()->GetPlayerChar(i))
+			continue;
 		
+		GameServer()->GetPlayerChar(i)->m_Lifes = 3;
+	}
 		
 	GameServer()->SendBroadcast(aBuf, -1);
 	//GameServer()->StartVote("Test vote", "/test", "For teh lulz");
