@@ -460,7 +460,7 @@ int CGameControllerKillingFloor::OnCharacterDeath(class CCharacter *pVictim, cla
 
 CAI *CGameControllerKillingFloor::GetNextEnemyAI(class CCharacter *pChr)
 {
-	CAI *AI = NULL;
+	CAI *AI = nullptr;
 	
 	
 	// boss wave
@@ -660,7 +660,7 @@ bool CGameControllerKillingFloor::CanCharacterSpawn(int ClientID)
 	if (m_GameState == GAMESTATE_ROUND && m_ZombiesLeft > 0)
 	{
 		// infinite zombies on boss round
-		if (m_Round != m_MaxRounds)
+		if (m_Round != m_MaxRounds && m_Round%5 != 0)
 			m_ZombiesLeft--;
 		return true;
 	}

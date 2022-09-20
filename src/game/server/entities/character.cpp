@@ -1090,7 +1090,7 @@ void CCharacter::GiveClassWeapon()
 	switch (m_pPlayer->m_Class)
 	{
 	case CLASS_COMMANDO:
-		GiveCustomWeapon(RIFLE_ASSAULTRIFLE);
+		GiveCustomWeapon(GUN_SLEEPRAY);
 		break;
 		
 	case CLASS_MEDIC:

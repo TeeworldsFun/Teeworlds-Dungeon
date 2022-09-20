@@ -535,7 +535,7 @@ const CWeapon aCustomWeapon[NUM_CUSTOMWEAPONS] =
 		PROJTYPE_LASER,
 		SOUND_RIFLE_FIRE,
 		-1, // require
-		0, // cost
+		120, // cost
 		2, // damage
 		SLEEPEFFECT, // extra1
 		false, // autofire
@@ -543,10 +543,10 @@ const CWeapon aCustomWeapon[NUM_CUSTOMWEAPONS] =
 		5, // clip size
 		10, // powerup size
 		50, // max ammo
-		0, // bullet life
+		1.0f, // bullet life
 		150, // bullet reload time
 		150, // clip reload time
-		0.0f // bullet knockback
+		-5.0f // bullet knockback
 		),
 	CWeapon(
 		"Assault rifle",

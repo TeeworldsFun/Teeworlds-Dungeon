@@ -15,7 +15,7 @@ CAIBossbody::CAIBossbody(CGameContext *pGameServer, CPlayer *pPlayer)
 void CAIBossbody::OnCharacterSpawn(CCharacter *pChr)
 {
 	pChr->SetCustomWeapon(HAMMER_BOTBASIC);
-	pChr->SetHealth(9999);
+	pChr->SetHealth(3000);
 	
 	str_copy(pChr->GetPlayer()->m_TeeInfos.m_SkinName, "toptri", 64);
 }
