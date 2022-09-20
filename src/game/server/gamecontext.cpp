@@ -2214,7 +2214,8 @@ void CGameContext::SaveMap(const char *path)
 	str_format(aMapFile, sizeof(aMapFile), "maps/Dungeon_S%d_L%d.map", g_Config.m_SvMapGenSeed, g_Config.m_SvMapGenLevel);
 		
 	// Map will be saved to current dir, not to ~/.ninslash/maps or to data/maps, so we need to create a dir for it
-	Storage()->CreateFolder("maps", IStorage::TYPE_SAVE);
+	// no, last one comment not real, it gonna save to ~/.teeworlds/maps, so we dont need creare folder.
+	//Storage()->CreateFolder("maps", IStorage::TYPE_SAVE); I COMMENT IT!! OHHHH
 		
     fileWrite.SaveMap(Storage(), pMap->GetFileReader(), aMapFile);
 

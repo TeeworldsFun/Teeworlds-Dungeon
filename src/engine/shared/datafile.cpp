@@ -815,7 +815,7 @@ bool CDataFileWriter::SaveMap(class IStorage *pStorage, CDataFileReader *pFileMa
 		COLFLAG_MOVELEFT=129,
 		COLFLAG_MOVERIGHT=130,
 		COLFLAG_HANG=131,
-		COLFLAG_PLATFORM=132,
+		COLFLAG_PLATFORM=135,
 	};
 
 	int LayerStart, LayerCount=0, LayerNum, GroupStart, GroupCount=0, GroupNum;
@@ -857,7 +857,7 @@ bool CDataFileWriter::SaveMap(class IStorage *pStorage, CDataFileReader *pFileMa
                                 if (index == COLFLAG_MOVELEFT) pTiles[tpos].m_Index = TILE_AILEFT;
                                 if (index == COLFLAG_MOVERIGHT) pTiles[tpos].m_Index = TILE_AIRIGHT;
                                 if (index == COLFLAG_HANG) pTiles[tpos].m_Index = TILE_AIUP;
-                                if (index == COLFLAG_PLATFORM) pTiles[tpos].m_Index = TILE_SOLID;
+                                if (index == COLFLAG_PLATFORM) pTiles[tpos].m_Index = TILE_PLATFORM;
                             }
                         }
                     }

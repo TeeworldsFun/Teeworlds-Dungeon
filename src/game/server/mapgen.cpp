@@ -1023,7 +1023,7 @@ void CMapGen::GenerateLevel()
 				ModifTile(ivec2(x, y), m_pLayers->GetForegroundLayerIndex(), i, f);
 				
 				if (i >= 14*16+1 && i <= 14*16+3)
-					ModifTile(ivec2(x, y), m_pLayers->GetGameLayerIndex(), TILE_SOLID);
+					ModifTile(ivec2(x, y), m_pLayers->GetGameLayerIndex(), TILE_PLATFORM);
 				else
 					ModifTile(ivec2(x, y), m_pLayers->GetGameLayerIndex(), 1);
 			}
@@ -1055,7 +1055,7 @@ void CMapGen::GenerateLevel()
 	pTiles->Scan();
 	
 	// start pos
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		ivec2 p = pTiles->GetPlayerSpawn();
 		ModifTile(p+ivec2(-1, 0), m_pLayers->GetGameLayerIndex(), ENTITY_OFFSET+ENTITY_SPAWN);
@@ -1657,7 +1657,7 @@ void CMapGen::WriteLayers(CGenLayer *pTiles)
 				ModifTile(ivec2(x, y), m_pLayers->GetForegroundLayerIndex(), i, f);
 				
 				if (i >= 14*16+1 && i <= 14*16+3)
-					ModifTile(ivec2(x, y), m_pLayers->GetGameLayerIndex(), TILE_SOLID);
+					ModifTile(ivec2(x, y), m_pLayers->GetGameLayerIndex(), TILE_PLATFORM);
 				else
 					ModifTile(ivec2(x, y), m_pLayers->GetGameLayerIndex(), 1);
 			}

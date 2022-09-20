@@ -72,6 +72,9 @@ void CCollision::Init(class CLayers *pLayers)
 		case TILE_DAMAGEFLUID:
 			m_pTiles[i].m_Index = COLFLAG_DAMAGEFLUID;
 			break;
+		case TILE_PLATFORM:
+			m_pTiles[i].m_Index = COLFLAG_PLATFORM;
+			break;
 		default:
 			m_pTiles[i].m_Index = 0;
 		}
@@ -283,6 +286,9 @@ bool CCollision::ModifTile(ivec2 pos, int group, int layer, int tile, int flags,
         case TILE_AIUP:
             m_pTiles[tpos].m_Index = COLFLAG_AIUP;
             break;
+		case TILE_PLATFORM:
+			m_pTiles[tpos].m_Index = COLFLAG_PLATFORM;
+			break;
         default:
             if(tile <= 128)
                 m_pTiles[tpos].m_Index = 0;

@@ -167,9 +167,6 @@ void CPlayer::Tick()
 		++m_LastActionTick;
 		++m_TeamChangeTick;
  	}
-
-	if(m_Dead)
-		AITick();
 }
 
 void CPlayer::PostTick()

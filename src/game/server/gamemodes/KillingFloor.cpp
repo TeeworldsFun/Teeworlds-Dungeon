@@ -45,7 +45,8 @@ static const char *aDifficulty[NUM_DIFFICULTIES] =
 
 CGameControllerKillingFloor::CGameControllerKillingFloor(class CGameContext *pGameServer) : IGameController(pGameServer)
 {
-	m_pGameType = "FDungeon";
+	// Ninslash TuT i love u Ninslash.
+	m_pGameType = "Def";
 
 	for (int i = 0; i < MAX_TELEPORTS; i++)
 		m_apTeleport[i] = NULL;
@@ -67,7 +68,7 @@ CGameControllerKillingFloor::CGameControllerKillingFloor(class CGameContext *pGa
 	m_ZombiesCreated = false;
 	m_DroppablesCreated = false;
 	
-	m_MaxRounds = rand()%20+7;
+	m_MaxRounds = rand()%43+7;
 	Restart();
 	
 	m_TeleportCounter = 0;
@@ -646,12 +647,6 @@ void CGameControllerKillingFloor::OnCharacterSpawn(CCharacter *pChr)
 			
 		//pChr->GetPlayer()->m_pAI = new CAIRunner(GameServer(), pChr->GetPlayer());
 		pChr->GetPlayer()->m_pAI = GetNextEnemyAI(pChr);
-	}
-
-	if(pChr->GetPlayer()->m_Dead)
-	{
-		pChr->GetPlayer()->m_pAI = new CAILightningbot(GameServer(), pChr->GetPlayer());
-		pChr->m_IsBot = true;
 	}
 }
 

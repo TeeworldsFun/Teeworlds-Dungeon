@@ -157,8 +157,6 @@ public:
 	
 	void ShowTip(int Tip);
 	void DisableTip(int Tip);
-	
-	bool m_Dead;
 private:
 	CCharacter *m_pCharacter;
 	CGameContext *m_pGameServer;
