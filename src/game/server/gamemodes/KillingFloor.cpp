@@ -439,7 +439,7 @@ int CGameControllerKillingFloor::OnCharacterDeath(class CCharacter *pVictim, cla
 		pVictim->GetPlayer()->m_RespawnTick = Server()->Tick()+Server()->TickSpeed()*1.0f;
 	}
 	
-	if(!pVictim->m_IsBot)
+	/*if(!pVictim->m_IsBot)
 	{
 		pVictim->m_Lifes--;
 		if(pVictim->m_Lifes <= 0)
@@ -451,7 +451,7 @@ int CGameControllerKillingFloor::OnCharacterDeath(class CCharacter *pVictim, cla
 		char aBuf[256];
 		str_format(aBuf, sizeof(aBuf), "You lost one life, you only have %d life left", pVictim->m_Lifes);
 		GameServer()->SendChatTarget(pVictim->GetCID(), aBuf);
-	}
+	}*/
 
 	return 0;
 }
